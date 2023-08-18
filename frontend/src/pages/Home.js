@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails'
+import WorkoutForm from "../components/WorkoutForm"
 
 
 // create a blank react component for the home page
@@ -39,6 +40,7 @@ const Home = () => {
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
             </div>
+            <WorkoutForm />
         </div>
     )
 }
