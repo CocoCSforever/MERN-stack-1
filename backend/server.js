@@ -88,3 +88,5 @@ mongoose.connect(process.env.MONGO_URI)
 // what kind of script wanna run when runing the dev command
 // npm run dev
 // will do the same thing as nodemon server.js
+
+// npx create-react-app frontend
