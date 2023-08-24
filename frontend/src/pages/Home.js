@@ -1,5 +1,5 @@
 // fetch all workouts and list them in the home page
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails'
@@ -33,11 +33,18 @@ const Home = () => {
                 // then it updates the global context state in WorkoutsContextProvider
                 // it then return a value "...state" whicb provides us as {workouts, dispatch} at 1st line
                 // instead of using local state, we're using global context
+
+                // inside this use effect hook we use the dispatch function
+                // this is kind of an external function that's not defined
+                // anywhere inside use effect and when we use those external functions or
+                // dependencies then we have to declare them in the dependency array at line 45
             }
         }
 
         fetchWorkouts()
-    }, [])
+    }, [dispatch])
+// whenever the dispatch function changes in any way shape or form then it's going
+// to rerun this use effect function
 
     
     return (
