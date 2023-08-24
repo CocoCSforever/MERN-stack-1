@@ -1,8 +1,11 @@
 // fill out the form and submit, will add a new workout
 import  { useState } from "react"
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 
 
 const WorkoutForm = () => {
+    const { dispatch } = useWorkoutsContext()
+
     // create state for each of the diff properties of the new workout
     const [title, setTitle] = useState('')
     const [load, setLoad] = useState('')
@@ -34,6 +37,7 @@ const WorkoutForm = () => {
             setReps('')
             setError(null)
             console.log('new workout added', json)
+            dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
     }
     return (

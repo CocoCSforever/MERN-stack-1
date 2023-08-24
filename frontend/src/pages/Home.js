@@ -5,11 +5,15 @@ import { useEffect, useState } from "react"
 import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from "../components/WorkoutForm"
 
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+
 
 // create a blank react component for the home page
 // function returns a template
 const Home = () => {
-    const [workouts, setWorkouts] = useState(null)
+    // const [workouts, setWorkouts] = useState(null)
+    const {workouts, dispatch} = useWorkoutsContext()
+    // why would Home be re-rendered when workouts/state updates
 
     // only wants to fire it once instead of every time the component is rendered
     // thus add 2rd argument: empty array. This's dependency array that only fire once when the component first renders
@@ -22,7 +26,13 @@ const Home = () => {
             const json = await response.json()
             
             if (response.ok){
-                setWorkouts(json)
+                // setWorkouts(json)
+                // json==the full array of workouts
+                dispatch({type: 'SET_WORKOUTS', payload: json})
+                // it fires workoutsReducer and passes in the action(type+payload) and it returns new state object
+                // then it updates the global context state in WorkoutsContextProvider
+                // it then return a value "...state" whicb provides us as {workouts, dispatch} at 1st line
+                // instead of using local state, we're using global context
             }
         }
 
@@ -63,3 +73,15 @@ export default Home
 // the issue during development however importantly this will only work during
 // development and for production you need to make sure that every request points
 
+
+// bc. fetching the data once in the home page, we only see new documents after we refresh the page and refetch the data again
+// our local react state for the workouts isn't being kept in sync with the database collection when we
+// add a new document
+// 1. force a refetch of data whenever we add a new document to update the state
+// 2. update state locally using react context
+// React context: so react context is a way that we can provide kind of global state to many
+// different components in the application and then we can also update that state
+// by dispatching actions from those components as well a little bit like how
+// redux works and the global state that we're going to be working with is the workouts data that we're going to fetch from mongodb so then
+// rather than passing the workouts state as props between components and pages to
+// update it we can just access it and update it directly then using a context provider from any component
