@@ -49,7 +49,9 @@ const WorkoutForm = () => {
                 type="text"
                 // when use types in the field, it'sG fire a function
                 onChange={(e) => setTitle(e.target.value)}
-                value = {title}
+                // if title changes from outside of the form from other functions later on
+                // eg. reset the form and change it back to an empty string then the change isG be reflected in this input as well
+                // value = {title}
             />
 
             <label>Load (in kg):</label>

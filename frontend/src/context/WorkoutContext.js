@@ -23,6 +23,11 @@ export const workoutsReducer = (state, action) => {
             return {
                 workouts: [action.payload, ...state.workouts]
             }
+        case 'DELETE_WORKOUT':
+            return {
+                // return true if we want that workout to remain in the new array
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+            }
         default:
             // state unchanged
             return state
