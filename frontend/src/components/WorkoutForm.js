@@ -7,10 +7,12 @@ const WorkoutForm = () => {
     const { dispatch } = useWorkoutsContext()
 
     // create state for each of the diff properties of the new workout
+    // ''/null/[]==props that we'll begin with
     const [title, setTitle] = useState('')
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         // prevent the default action of the form being submitted(such as refreshing the page)
@@ -30,12 +32,14 @@ const WorkoutForm = () => {
 
         if(!response.ok){
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
         if(response.ok){
             setTitle('')
             setLoad('')
             setReps('')
             setError(null)
+            setEmptyFields([])
             console.log('new workout added', json)
             dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
@@ -51,7 +55,8 @@ const WorkoutForm = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 // if title changes from outside of the form from other functions later on
                 // eg. reset the form and change it back to an empty string then the change isG be reflected in this input as well
-                // value = {title}
+                value = {title}
+                className={emptyFields.includes('title') ? 'error': ''}
             />
 
             <label>Load (in kg):</label>
@@ -60,6 +65,7 @@ const WorkoutForm = () => {
                 // when use types in the field, it'sG fire a function
                 onChange={(e) => setLoad(e.target.value)}
                 value = {load}
+                className={emptyFields.includes('load') ? 'error': ''}
             />
 
             <label>Reps:</label>
@@ -68,6 +74,7 @@ const WorkoutForm = () => {
                 // when use types in the field, it'sG fire a function
                 onChange={(e) => setReps(e.target.value)}
                 value = {reps}
+                className={emptyFields.includes('reps') ? 'error': ''}
             />
             
             <button>Add Workout</button>
