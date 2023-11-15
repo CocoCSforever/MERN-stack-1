@@ -66,7 +66,7 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 // 5. try to store these constants like "40000" in an environment variable
-// we use .env file and add it to git.ignore to hide these variables
+// we use .env file and add it to .gitignore to hide these variables
 // npm install dotenv
 // dotenv is a package loads environments variables from a .env file into the process.env object
 // available to us globally in a node.js environment

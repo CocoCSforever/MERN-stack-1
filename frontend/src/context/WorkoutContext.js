@@ -40,8 +40,8 @@ export const workoutsReducer = (state, action) => {
 // that's accepting the props) wraps. so in this case the children
 // property represents the app component that we just wrapped inside the index.js
 
-// if we output the children inside this provider
-// components then essentially we're outputting the root app component
+// if we output the children inside this provider component
+// then essentially we're outputting the root app component
 export const WorkoutsContextProvider = ({ children }) => {
     // return a template and it'sG be our workout context
 
